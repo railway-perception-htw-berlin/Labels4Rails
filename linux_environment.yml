@@ -1,0 +1,12 @@
+name: raillabel_linux
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pyqt
+  - hydra-core
+  - opencv
+  - numpy==1.23
+  - natsort
+  - pillow
+

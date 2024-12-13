@@ -1,0 +1,13 @@
+name: QtRailLabel
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - opencv==4.5.3
+  - hydra-core
+  - natsort
+  - numpy==1.23
+  - pip:
+      - splines
+      - pyqt5
+      - pyinstaller
