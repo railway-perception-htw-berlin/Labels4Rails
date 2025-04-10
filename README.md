@@ -1,8 +1,6 @@
 <div align="center">
-<img src="images/RailLabel.png">
+<img src="images/labels4rails.png">
 </div>
-
-[[_TOC_]]
 
 # Installation
 
