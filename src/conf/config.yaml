@@ -1,0 +1,274 @@
+data:
+  paths:
+    camera_extrinsic: "C:/Users/arbeit/Desktop/Arbeit/myproject-main/dataset/nordlandsbahn_summer_000/camera/camera.yaml"
+    images:
+      path: "C:/Users/arbeit/Desktop/Arbeit/myproject-main/dataset/nordlandsbahn_summer_000/images"
+      extensions:
+        - "jpg"
+        - "jpeg"
+        - "png"
+    annotations: "C:/Users/arbeit/Desktop/Arbeit/myproject-main/dataset/nordlandsbahn_summer_000/annotations"
+  track_width: 1100  # mm
+  rail_width: 67  # mm
+
+targets:
+  tags:
+    track_layout:
+      - curve
+      - straight
+      - parallel structures
+      - orthogonal structures
+      - unknown
+    weather:
+      - cloudy
+      - rainy
+      - sunny
+      - snow
+      - foggy
+      - unknown
+    light:
+      - natural
+      - artificial
+      - uniform
+      - hard shadows
+      - dark
+      - bright
+      - high contrast
+      - unknown
+    time_of_day:
+      - twilight
+      - day
+      - night
+      - unknown
+    environment:
+      - rural
+      - urban
+      - station
+      - underground
+      - unknown
+    additional:
+      - obstruction
+      - duplicate
+      - ToBeDone
+  switches:
+    marks_transparency: float  # 0.0 to 1.0
+    box_transparency: float  # 0.0 to 1.0
+    fork:
+      left:
+        marks_color: [31, 119 ,180]  # RGB
+        marks_radius: 0.005  # 0.0 to 1.0 relative to image width
+        box_color: [31, 119 ,180]  # RGB
+        box_thickness: 0.005  # 0.0 to 1.0 relative to image width
+      right:
+        marks_color: [255, 127, 14]  # RGB
+        marks_radius: 0.005  # 0.0 to 1.0 relative to image width
+        box_color: [255, 127, 14]  # RGB
+        box_thickness: 0.005  # 0.0 to 1.0 relative to image width
+      unknown:
+        marks_color: [148, 103, 189]  # RGB
+        marks_radius: 0.005  # 0.0 to 1.0 relative to image width
+        box_color: [148, 103, 189]  # RGB
+        box_thickness: 0.005  # 0.0 to 1.0 relative to image width
+      selected:
+        marks_color: [ 255, 0, 255 ]  # RGB
+        marks_radius: 0.005  # 0.0 to 1.0 relative to image width
+        box_color: [ 0, 0, 0 ]  # RGB
+        box_thickness: 0.005  # 0.0 to 1.0 relative to image width
+    merge:
+      left:
+        marks_color: [44, 160, 44]  # RGB
+        marks_radius: 0.005  # 0.0 to 1.0 relative to image width
+        box_color: [44, 160, 44]  # RGB
+        box_thickness: 0.005  # 0.0 to 1.0 relative to image width
+      right:
+        marks_color: [ 214, 39 , 40]  # RGB
+        marks_radius: 0.005  # 0.0 to 1.0 relative to image width
+        box_color: [ 214, 39 , 40]  # RGB
+        box_thickness: 0.005  # 0.0 to 1.0 relative to image width
+      unknown:
+        marks_color: [140, 86, 75]  # RGB
+        marks_radius: 0.005  # 0.0 to 1.0 relative to image width
+        box_color: [140, 86, 75]  # RGB
+        box_thickness: 0.005  # 0.0 to 1.0 relative to image width
+      selected:
+        marks_color: [ 0, 0, 0 ]  # RGB
+        marks_radius: 0.005  # 0.0 to 1.0 relative to image width
+        box_color: [ 0, 0, 0 ]  # RGB
+        box_thickness: 0.005  # 0.0 to 1.0 relative to image width
+    unknown:
+      left:
+        marks_color: [127, 127, 127]  # RGB
+        marks_radius: 0.005  # 0.0 to 1.0 relative to image width
+        box_color: [127, 127, 127]  # RGB
+        box_thickness: 0.005  # 0.0 to 1.0 relative to image width
+      right:
+        marks_color: [188, 189, 34]  # RGB
+        marks_radius: 0.005  # 0.0 to 1.0 relative to image width
+        box_color: [188, 189, 34]  # RGB
+        box_thickness: 0.005  # 0.0 to 1.0 relative to image width
+      unknown:
+        marks_color: [23, 190, 207]  # RGB
+        marks_radius: 0.005  # 0.0 to 1.0 relative to image width
+        box_color: [23, 190, 207]  # RGB
+        box_thickness: 0.005  # 0.0 to 1.0 relative to image width
+      selected:
+        marks_color: [ 0, 0, 0 ]  # RGB
+        marks_radius: 0.005  # 0.0 to 1.0 relative to image width
+        box_color: [ 0, 0, 0 ]  # RGB
+        box_thickness: 0.005  # 0.0 to 1.0 relative to image width
+  tracks:
+    marks_transparency: 0.5  # 0.0 to 1.0
+    splines_transparency: 0.5  # 0.0 to 1.0
+    contour_transparency: 0.5  # 0.0 to 1.0
+    fill_transparency: 0.5  # 0.0 to 1.0
+    ego:
+      track_bed:
+        export_mask_color: 255 # int
+        fill_color: [197, 197, 58]  # RGB
+        contour_color: [255, 255, 0]  # RGB
+        interpolation_steps: 15  # Between two marks
+      left_rail:
+        export_mask_color: 255 # int
+        marks_color: [255, 255, 0]  # RGB
+        splines_color: [255, 255, 0]  # RGB
+        contour_color: [255, 255, 0]  # RGB
+        fill_color: [255, 255, 0]  # RGB
+        interpolation_steps: 15  # Between two marks
+      right_rail:
+        export_mask_color: 255 # int
+        marks_color: [255, 255, 0]  # RGB
+        splines_color: [255, 255, 0]  # RGB
+        contour_color: [255, 255, 0]  # RGB
+        fill_color: [255, 255, 0]  # RGB
+        interpolation_steps: 15  # Between two marks
+    left:
+      track_bed:
+        export_mask_color: 85 # int
+        fill_color: [197, 58, 58]  # RGB
+        contour_color: [255, 0, 0]  # RGB
+        interpolation_steps: 15  # Between two marks
+      left_rail:
+        export_mask_color: 85 # int
+        marks_color: [ 255, 0, 0]  # RGB
+        splines_color: [255, 0, 0]  # RGB
+        contour_color: [255, 0, 0]  # RGB
+        fill_color: [255, 0, 0]  # RGB
+        interpolation_steps: 15  # Between two marks
+      right_rail:
+        export_mask_color: 85 # int
+        marks_color: [ 255, 0, 0]  # RGB
+        splines_color: [255, 0, 0]  # RGB
+        contour_color: [255, 0, 0]  # RGB
+        fill_color: [255, 0, 0]  # RGB
+        interpolation_steps: 15  # Between two marks
+    right:
+      track_bed:
+        export_mask_color: 170 # int
+        fill_color: [58, 197, 58]  # RGB
+        contour_color: [0, 255, 0]  # RGB
+        interpolation_steps: 15  # Between two marks
+      left_rail:
+        export_mask_color: 170 # int
+        marks_color: [0, 255, 0]  # RGB
+        splines_color: [0, 255, 0]  # RGB
+        contour_color: [0, 255, 0]  # RGB
+        fill_color: [0, 255, 0]  # RGB
+        interpolation_steps: 15  # Between two marks
+      right_rail:
+        export_mask_color: 170 # int
+        marks_color: [0, 255, 0]  # RGB
+        splines_color: [0, 255, 0]  # RGB
+        contour_color: [0, 255, 0]  # RGB
+        fill_color: [0, 255, 0]  # RGB
+        interpolation_steps: 15  # Between two marks
+
+    selected:
+      track_bed:
+        export_mask_color: 0 # int
+        fill_color: [255, 0, 255]  # RGB
+        contour_color: [255, 0, 255]  # RGB
+        interpolation_steps: 15  # Between two marks
+      left_rail:
+
+        export_mask_color: 170 # int
+        marks_color: [255, 0, 255]  # RGB
+        splines_color: [255, 0, 255]  # RGB
+        contour_color: [255, 0, 255]  # RGB
+        fill_color: [255, 0, 255]  # RGB
+        interpolation_steps: 15  # Between two marks
+      right_rail:
+        export_mask_color: 170 # int
+        marks_color: [255, 0, 255]  # RGB
+        splines_color: [255, 0, 255]  # RGB
+        contour_color: [255, 0, 255]  # RGB
+        fill_color: [255, 0, 255]  # RGB
+        interpolation_steps: 15  # Between two marks
+
+
+    drawing_order: 
+      - [left, track_bed] 
+      - [right, track_bed] 
+      - [ego, track_bed]
+      - [selected,track_bed]
+      - [left, rails] 
+      - [right, rails] 
+      - [ego, rails]
+
+
+aiming_devices:
+  track_stencil:
+    color: [0, 0, 255]  # RGB
+    thickness: 0.0006  #  Px
+    transparency: 0.5 # 0.0 to 1.0, Not implemented yet
+    hair_to_midpoint_distance: 3 #  Px
+    track_width: 1435  # mm
+    rail_width: 67  # mm
+  cross_hair:
+    color: [255, 255, 255]  # RGB
+    transparency: 0.5  # 0.0 to 1.0
+    mid_point_buffer: 0.02  #  0.0 to 1.0 relative to image width
+    thickness: 0.0006  #  0.0 to 1.0 relative to image width
+    mid_point_radius: 0.0006  # 0.0 to 1.0 relative to image width
+    hair_to_midpoint_distance: 0.0006  # 0.0 to 1.0 relative to image width
+
+#configuration to filter pixelmask/yolo export by tags
+included:
+  additional_attributes:
+    -
+    -
+  environment:
+    - urban
+  light:
+    -
+  time_of_day:
+      -
+  track_layout:
+    - straight
+  weather:
+    -
+
+excluded:
+  additional_attributes:
+    -
+  environment:
+    -
+  light:
+    -
+  time_of_day:
+    -
+  track_layout:
+    - curve
+  weather:
+    -
+
+
+# Configuration for Hydra
+defaults:
+  - override hydra/job_logging: none
+  - override hydra/hydra_logging: none
+
+hydra:
+  run:
+    dir: .
+  output_subdir: null
+  #job_logging: stdout
