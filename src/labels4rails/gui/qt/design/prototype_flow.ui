@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>testGUI</string>
+   <string>Labels4Rails</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(186, 189, 182);</string>
