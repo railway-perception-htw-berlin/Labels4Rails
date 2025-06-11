@@ -1,4 +1,4 @@
-name: raillabel_linux
+name: Labels4Rails
 channels:
   - conda-forge
 dependencies:
@@ -9,4 +9,5 @@ dependencies:
   - numpy==1.23
   - natsort
   - pillow
+  - torchvision
 

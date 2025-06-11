@@ -1,4 +1,4 @@
-name: QtRailLabel
+name: Labels4Rails
 channels:
   - conda-forge
 dependencies:
@@ -11,3 +11,4 @@ dependencies:
       - splines
       - pyqt5
       - pyinstaller
+      - torchvision
