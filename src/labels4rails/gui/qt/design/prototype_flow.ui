@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Labels4Rails</string>
+   <string>testGUI</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(186, 189, 182);</string>
@@ -1105,28 +1105,6 @@ background-color: rgb(238, 238, 236);</string>
          <string>Del</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_track_semi_auto">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>190</y>
-          <width>227</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Semi-Auto</string>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-        <property name="default">
-         <bool>true</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
        <widget class="QPushButton" name="pushButton_track_auto">
         <property name="geometry">
          <rect>
@@ -1337,7 +1315,6 @@ background-color: rgb(238, 238, 236);</string>
        <zorder>pushButton_track_auto</zorder>
        <zorder>pushButton_add_track</zorder>
        <zorder>pushButton_del_track</zorder>
-       <zorder>pushButton_track_semi_auto</zorder>
        <zorder>radioTRight</zorder>
        <zorder>radioTLeft</zorder>
        <zorder>radioTEgo</zorder>
@@ -1639,22 +1616,13 @@ background-color: rgb(238, 238, 236);</string>
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>190</y>
+          <y>210</y>
           <width>227</width>
           <height>21</height>
          </rect>
         </property>
         <property name="text">
          <string>Auto</string>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-        <property name="default">
-         <bool>true</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
         </property>
        </widget>
       </widget>

@@ -48,8 +48,6 @@ class ITrack(metaclass=abc.ABCMeta):
     def id(self) -> int:
         pass
 
-
-
     @property
     @abc.abstractmethod
     def position(self) -> str:

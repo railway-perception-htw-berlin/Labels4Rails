@@ -225,7 +225,7 @@ class AutoSwitches:
         scene_index = self._annotator.get_datacounter()
         scene_resolution = self._dataset[scene_index].image.shape[:2]
 
-        overlaps = []
+        results = []
         tracks = scene.tracks
         track_ids = list(tracks.keys())
 
@@ -243,7 +243,7 @@ class AutoSwitches:
                     direction = self._get_switch_direction(tracks[id1], tracks[id2], mask1, mask2, bounding_box_native, type)
                     bounding_box_expanded = self._create_bounding_box_expanded(mask1, mask2, type, direction)
 
-                    overlaps.append({
+                    results.append({
                         "track_ids": (id1, id2),
                         "bounding_box": bounding_box_expanded,
                         "type": type,
@@ -251,40 +251,40 @@ class AutoSwitches:
                     })
 
         # Handle detected switches in GUI
-        for overlap in overlaps:
-            if overlap["type"] == "merge":
-                if overlap["direction"] == "left":
+        for result in results:
+            if result["type"] == "merge":
+                if result["direction"] == "left":
                     scene.add_switch(
                         target.SwitchKind.MERGE,
                         target.SwitchDirection.LEFT,
                     )
-                elif overlap["direction"] == "right":
+                elif result["direction"] == "right":
                     scene.add_switch(
                         target.SwitchKind.MERGE,
                         target.SwitchDirection.RIGHT,
                     )
-                elif overlap["direction"] == "unknown":
+                elif result["direction"] == "unknown":
                     scene.add_switch(
                         target.SwitchKind.MERGE,
                         target.SwitchDirection.UNKNOWN,
                     )
-            elif overlap["type"] == "fork":
-                if overlap["direction"] == "left":
+            elif result["type"] == "fork":
+                if result["direction"] == "left":
                     scene.add_switch(
                         target.SwitchKind.FORK,
                         target.SwitchDirection.LEFT,
                     )
-                elif overlap["direction"] == "right":
+                elif result["direction"] == "right":
                     scene.add_switch(
                         target.SwitchKind.FORK,
                         target.SwitchDirection.RIGHT,
                     )
-                elif overlap["direction"] == "unknown":
+                elif result["direction"] == "unknown":
                     scene.add_switch(
                         target.SwitchKind.FORK,
                         target.SwitchDirection.UNKNOWN,
                     )
-            elif overlap["type"] == "unknown":
+            elif result["type"] == "unknown":
                 scene.add_switch(
                     target.SwitchKind.UNKNOWN,
                     target.SwitchDirection.UNKNOWN,
@@ -293,9 +293,9 @@ class AutoSwitches:
             switches = scene.switches
             switch_ids = list(switches.keys())
 
-            switches[switch_ids[-1]].add_track_ids(list(overlap["track_ids"]))
+            switches[switch_ids[-1]].add_track_ids(list(result["track_ids"]))
 
-            bounding_box = overlap["bounding_box"]
+            bounding_box = result["bounding_box"]
             bounding_box_pos = [
                 utils.geometry.ImagePoint(bounding_box[0], bounding_box[1]),
                 utils.geometry.ImagePoint(bounding_box[2], bounding_box[3])
@@ -304,6 +304,7 @@ class AutoSwitches:
             for bb_corner in bounding_box_pos:
                 switches[switch_ids[-1]].add_mark([bb_corner])
 
-        if overlaps:
+        if results:
             self._gui_event.post(gui.GuiEvents.SWITCH_LIST_UPDATE, switches.values())
+            self._gui_event.post(gui.GuiEvents.DISPLAY)
             self._annotator.update_annotations()

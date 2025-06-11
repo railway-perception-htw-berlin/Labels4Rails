@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'labels4rails/segmentation/InputData.ui'
+# Form implementation generated from reading ui file 'raillabel/segmentation/InputData.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -77,7 +77,7 @@ class Ui_MainWindow(object):
         self.label_Step_2.setGeometry(QtCore.QRect(10, 80, 620, 25))
         self.label_Step_2.setObjectName("label_Step_2")
         self.label_DataCount = QtWidgets.QLabel(self.centralwidget)
-        self.label_DataCount.setGeometry(QtCore.QRect(10, 400, 441, 20))
+        self.label_DataCount.setGeometry(QtCore.QRect(10, 400, 301, 20))
         self.label_DataCount.setObjectName("label_DataCount")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)

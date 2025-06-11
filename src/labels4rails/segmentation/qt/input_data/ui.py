@@ -1,5 +1,6 @@
 import os
 
+from PyQt5.QtCore import Qt
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import QListView, QTreeView, QAbstractItemView, QMessageBox, QFileDialog, QTreeWidgetItem
 from PyQt5.QtCore import QThread, pyqtSignal
@@ -46,11 +47,11 @@ class Ui(QtWidgets.QMainWindow):
         
         # Show next window
         self.hide()
-        self.next_ui = NextWindow(self.data_dict, self.parent)
+        self.next_ui = NextWindow(self.data_dict, previous_window=self, parent=self.parent)
         self.next_ui.show()
         
     def pushButton_InputFolder_clicked(self):
-        self.input_parent_folder = QFileDialog.getExistingDirectory(self, "Select Input Folder")
+        self.input_parent_folder = os.path.normpath(QFileDialog.getExistingDirectory(self, "Select Input Folder"))
         self.ui.textEdit.setText(self.input_parent_folder)
         self.ui.textEdit.show()
         if not self.input_parent_folder:
@@ -99,87 +100,57 @@ class Ui(QtWidgets.QMainWindow):
             else: selected_paths.append(folder_path)
         return selected_paths
     
-from PyQt5.QtCore import Qt
-
 class CustomTreeWidget(QtWidgets.QTreeWidget):
     def __init__(self, parent=None):
         super(CustomTreeWidget, self).__init__(parent)
         self.last_selected_item = None  # Keep track of the last selected item for range selection
 
     def keyPressEvent(self, event):
-        if event.key() in [Qt.Key_Up, Qt.Key_Down] and event.modifiers() == Qt.ShiftModifier:
-            current_item = self.currentItem()
-
-            if not current_item:
-                return super().keyPressEvent(event)
-
-            # Determine the next item
-            if event.key() == Qt.Key_Up:
-                next_item = self.itemAbove(current_item)
-            elif event.key() == Qt.Key_Down:
-                next_item = self.itemBelow(current_item)
-            else:
-                next_item = None
-
-            # Perform range selection if Shift is pressed
-            if next_item:
-                if not self.last_selected_item:
-                    self.last_selected_item = current_item
-                self.setCurrentItem(next_item)
-                next_item.setSelected(next_item.isSelected())  # Explicitly select the next item
-        else:
-            # Default behavior for other keys
-            super().keyPressEvent(event)
+        # Default behavior for other keys
+        super().keyPressEvent(event)
+        # once the default behaviour is done (next item is selected), make selections
+        current_item = self.currentItem()
+        if current_item:
+            if event.modifiers() == Qt.ShiftModifier:
+                if event.key() in [Qt.Key_Up, Qt.Key_Down]:
+                        current_item.setSelected(not current_item.isSelected())
+            self.last_selected_item = current_item
 
     def mousePressEvent(self, event):
+        # Call the default mousePressEvent first to do what it can do
+        super(CustomTreeWidget, self).mousePressEvent(event)
         # Get the item clicked by the user
         clicked_item = self.itemAt(event.pos())
-        modifiers = event.modifiers()
-
-        if not clicked_item:
-            return super().mousePressEvent(event)
-
-        if modifiers == Qt.ShiftModifier and self.last_selected_item:
-            # Perform range selection
-            self.selectRange(self.last_selected_item, clicked_item)
-            clicked_item.setSelected(clicked_item.isSelected())
+        # if escape return if no item is selected
+        if clicked_item:
+            if event.modifiers() == Qt.ShiftModifier and self.last_selected_item:
+                # Perform range selection
+                self.selectRange(self.last_selected_item, clicked_item)
+                clicked_item.setSelected(clicked_item.isSelected())
             self.last_selected_item = clicked_item
-        elif modifiers == Qt.ControlModifier:
-            # Toggle the selection state of the clicked item
-            clicked_item.setSelected(clicked_item.isSelected())
-            # Update the last selected item
-            self.last_selected_item = clicked_item
-        else:
-            # Clear all previous selections and select the clicked item
-            self.clearSelection()
-            clicked_item.setSelected(clicked_item.isSelected())
-            # Update the last selected item
-            self.last_selected_item = clicked_item
-
-        # Call the default mousePressEvent for further processing
-        super(CustomTreeWidget, self).mousePressEvent(event)
 
     def selectRange(self, start_item, end_item):
-        """
-        Select all items between start_item and end_item (inclusive).
-        """
-        if not start_item or not end_item:
-            return
+        if not start_item or not end_item: return
+        visible_items = visible_tree_items(self)
+        start_index, end_index = sorted([visible_items.index(start_item), visible_items.index(end_item)])
+        if not start_index == end_index:
+            for item in visible_items[start_index + 1 : end_index]:
+                item.setSelected(not item.isSelected())
 
-        # Get the indices of the start and end items
-        start_index = self.indexFromItem(start_item).row()
-        end_index = self.indexFromItem(end_item).row()
 
-        # Ensure proper range direction (start to end)
-        if start_index > end_index:
-            start_index, end_index = end_index, start_index
+def visible_tree_items(tree_widget):
+    visible_items = []
+    # Process top-level items
+    for i in range(tree_widget.topLevelItemCount()):
+        top_item = tree_widget.topLevelItem(i)
+        visible_items.append(top_item)
+        # Only process children of expanded items
+        if top_item.isExpanded(): process_visible_children(top_item, visible_items)
+    return visible_items
 
-        # Iterate through items in the range and select them
-        for i in range(start_index, end_index):
-            item = self.topLevelItem(i)
-            if item:
-                item.setSelected(True)
-
-    def clearSelection(self):
-        super().clearSelection()
-        self.last_selected_item = None
+def process_visible_children(parent_item, items_list):
+    for i in range(parent_item.childCount()):
+        child = parent_item.child(i)
+        items_list.append(child)
+        # Recursively process children only if this item is expanded
+        if child.isExpanded(): process_visible_children(child, items_list)

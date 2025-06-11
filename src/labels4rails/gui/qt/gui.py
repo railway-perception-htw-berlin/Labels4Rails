@@ -166,7 +166,6 @@ class QtGUI(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_add_switch.clicked.connect(lambda: self.add_switch())
         self.pushButton_del_switch.clicked.connect(lambda: self.del_switch())
         self.pushButton_track_auto.clicked.connect(lambda: self.auto_labeling_track())
-        self.pushButton_track_semi_auto.clicked.connect(lambda: self.semi_auto_labeling_track())
         self.pushButton_switch_auto.clicked.connect(lambda: self.auto_labeling_switch())
         self.listWidget_images.itemClicked.connect(self.load_image)
 
@@ -208,7 +207,6 @@ class QtGUI(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_add_switch.clicked.disconnect()
         self.pushButton_del_switch.clicked.disconnect()
         self.pushButton_track_auto.clicked.disconnect()
-        self.pushButton_track_semi_auto.clicked.disconnect()
         self.pushButton_switch_auto.clicked.disconnect()
 
         self.listWidget_active_switches.itemClicked.disconnect()
@@ -1047,10 +1045,6 @@ E: update attributes of selected switch<br>
     def auto_labeling_track(self):
         self.autolabel_tracks = AutoTracks(annotator=self._annotator, cfg=self._cfg, dataset=self._dataset, gui_event=self._gui_events)
         self._annotator.get_eventhub().post(gui.GuiEvents.AUTO_LABELING_TRACK)
-
-    def semi_auto_labeling_track(self):
-        self.autolabel_tracks = AutoTracks(annotator=self._annotator, cfg=self._cfg, dataset=self._dataset, gui_event=self._gui_events)
-        self._annotator.get_eventhub().post(gui.GuiEvents.SEMI_AUTO_LABELING_TRACK)
 
     def auto_labeling_switch(self):
         self.autolabel_switch = AutoSwitches(annotator=self._annotator, cfg=self._cfg, dataset=self._dataset, gui_event=self._gui_events)

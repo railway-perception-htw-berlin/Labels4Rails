@@ -401,8 +401,9 @@ class QtTrackDrawer(ITrackDrawer):
 
         contour_points_right: list[utils.geometry.IImagePoint]
         contour_points_right = right_rail.contour_points_splines_left(camera, cfg.interpolation_steps)
-        if contour_points_right[0].y > contour_points_right[-1].y:
-            contour_points_right = contour_points_right[::-1]
+        if len(contour_points_right) > 0:
+            if contour_points_right[0].y > contour_points_right[-1].y:
+                contour_points_right = contour_points_right[::-1]
 
         contour_points: list[utils.geometry.IImagePoint]
         contour_points = [*contour_points_left, *contour_points_right]

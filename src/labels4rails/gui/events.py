@@ -40,7 +40,6 @@ class GuiEvents(enum.IntEnum):
     TRACK_CHANGE_POSITION= enum.auto()
     INDEPENDENT_MODE = enum.auto()
     AUTO_LABELING_TRACK = enum.auto()
-    SEMI_AUTO_LABELING_TRACK = enum.auto()
     DRAG = enum.auto()
     DROP = enum.auto()
 
