@@ -64,8 +64,8 @@ that you can generate your labels from the dataset.
           - ego track bed: 255
           - ego rails: 255
       - To change the used values/IDs for the track beds and rails change the variables `export_mask_color` in the config file.
-    - To change the drawing order of the tracks change the variable `drawing_order` in the config file. Tracks, track beds and rails that are not listed here will not be drawn at all.
-    - An example configuration can be found in `raillabel/src/convert/config_convert2pixelmask.yaml`. Create a copy and adapt it.
+      - To change the drawing order of the tracks change the variable `drawing_order` in the config file. Tracks, track beds and rails that are not listed here will not be drawn at all.
+      - An example configuration can be found in `raillabel/src/convert/config_convert2pixelmask.yaml`. Create a copy and adapt it.
    3. convert yolo to raillabel:
       - `python raillabel\src\convert\yolo_to_rail_label.py "label_path" "image_path" "save_path"`
       - `label_path` is the directory containing the labels.
