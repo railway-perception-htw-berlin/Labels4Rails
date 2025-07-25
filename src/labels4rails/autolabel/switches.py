@@ -1,8 +1,6 @@
 import cv2
 import numpy as np
 
-from PyQt5.QtWidgets import QMessageBox
-
 from labels4rails import data
 from labels4rails import gui
 from labels4rails import utils
@@ -10,13 +8,14 @@ from labels4rails.annotate.qt_annotator import QtAnnotator
 from labels4rails.utils import config
 from labels4rails.scene import target
 
+
 class AutoSwitches:
     def __init__(
-            self,
-            annotator: QtAnnotator = None,
-            cfg: config.Labels4RailsConfig = None,
-            dataset: data.DataSet = None,
-            gui_event: utils.IEventHub = None
+        self,
+        annotator: QtAnnotator = None,
+        cfg: config.Labels4RailsConfig = None,
+        dataset: data.DataSet = None,
+        gui_event: utils.IEventHub = None
     ) -> None:
         self._annotator = annotator
         self._cfg = cfg

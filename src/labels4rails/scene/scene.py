@@ -199,10 +199,6 @@ class Scene(IScene):
         self._switches[switch_id].kind = switch_kind
         self._switches[switch_id].direction = switch_direction
 
-
-
-
-
     @property
     def switches(self) -> dict[int, target.ISwitch]:
         return self._switches

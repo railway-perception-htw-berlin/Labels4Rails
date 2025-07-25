@@ -362,9 +362,7 @@ class TagAnnotator(Annotator):
         self._gui_event: utils.IEventHub = gui_event
 
         # Subscribe gui events
-        self._gui_event.subscribe(
-            gui.GuiEvents.TAG_TRACK_LAYOUT, self._tags_track_layout
-        )
+        self._gui_event.subscribe(gui.GuiEvents.TAG_TRACK_LAYOUT, self._tags_track_layout)
         self._gui_event.subscribe(gui.GuiEvents.TAG_WEATHER, self._tags_weather)
         self._gui_event.subscribe(gui.GuiEvents.TAG_LIGHT, self._tags_light)
         self._gui_event.subscribe(gui.GuiEvents.TAG_TIME_OF_DAY, self._tags_time_of_day)
@@ -376,6 +374,7 @@ class TagAnnotator(Annotator):
         self._gui_event.unsubscribe_all(self._tags_weather)
         self._gui_event.unsubscribe_all(self._tags_light)
         self._gui_event.unsubscribe_all(self._tags_time_of_day)
+        self._gui_event.unsubscribe_all(self._tags_environment)
         self._gui_event.unsubscribe_all(self._tags_additional)
 
     def __call__(self) -> scene.IScene:

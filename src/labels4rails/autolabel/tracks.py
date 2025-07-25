@@ -1,6 +1,7 @@
 import os
 import math
 import torch
+
 from PIL import Image
 
 from labels4rails import data
@@ -14,11 +15,11 @@ from labels4rails.autolabel.models.tracks.utils.interface import Detector
 
 class AutoTracks:
     def __init__(
-            self,
-            annotator: QtAnnotator = None,
-            cfg: config.Labels4RailsConfig = None,
-            dataset: data.DataSet = None,
-            gui_event: utils.IEventHub = None
+        self,
+        annotator: QtAnnotator = None,
+        cfg: config.Labels4RailsConfig = None,
+        dataset: data.DataSet = None,
+        gui_event: utils.IEventHub = None
     ) -> None:
         self._annotator = annotator
         self._cfg = cfg
