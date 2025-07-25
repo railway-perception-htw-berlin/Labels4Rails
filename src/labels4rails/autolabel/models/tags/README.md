@@ -1,0 +1,1 @@
+CLIP model is handled by library

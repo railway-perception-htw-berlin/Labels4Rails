@@ -19,6 +19,7 @@ targets:
       - parallel structures
       - orthogonal structures
       - unknown
+      - auto
     weather:
       - cloudy
       - rainy
@@ -26,6 +27,7 @@ targets:
       - snow
       - foggy
       - unknown
+      - auto
     light:
       - natural
       - artificial
@@ -35,17 +37,20 @@ targets:
       - bright
       - high contrast
       - unknown
+      - auto
     time_of_day:
       - twilight
       - day
       - night
       - unknown
+      - auto
     environment:
       - rural
       - urban
       - station
       - underground
       - unknown
+      - auto
     additional:
       - obstruction
       - duplicate

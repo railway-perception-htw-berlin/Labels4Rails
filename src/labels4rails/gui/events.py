@@ -19,6 +19,9 @@ class GuiEvents(enum.IntEnum):
     STRATEGY = enum.auto()  # Change annotation strategy
 
     # Track related
+    DRAG = enum.auto()
+    DROP = enum.auto()
+
     TRACK_CREATE_EGO = enum.auto()
     TRACK_CREATE_LEFT = enum.auto()
     TRACK_CREATE_RIGHT = enum.auto()
@@ -40,8 +43,6 @@ class GuiEvents(enum.IntEnum):
     TRACK_CHANGE_POSITION= enum.auto()
     INDEPENDENT_MODE = enum.auto()
     AUTO_LABELING_TRACK = enum.auto()
-    DRAG = enum.auto()
-    DROP = enum.auto()
 
     # Switch related
     SWITCH_FORK_RIGHT = enum.auto()  # Create new Switch
@@ -78,6 +79,9 @@ class GuiEvents(enum.IntEnum):
     #TAG_TIME_OF_DAY_LIST_UPDATE = enum.auto()
     #TAG_ENVIRONMENT_LIST_UPDATE = enum.auto()
     #TAG_ADDITIONAL_LIST_UPDATE = enum.auto()
+
     TAG_ALL_LISTS_UPDATE = enum.auto()
     TAG_COPY = enum.auto()
     TAG_COPY_OVERWRITE = enum.auto()
+
+    AUTO_LABELING_TAG = enum.auto()

@@ -10,4 +10,4 @@ dependencies:
   - natsort
   - pillow
   - torchvision
-
+  - openai-clip

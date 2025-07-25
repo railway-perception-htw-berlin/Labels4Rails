@@ -12,3 +12,4 @@ dependencies:
       - pyqt5
       - pyinstaller
       - torchvision
+      - openai-clip

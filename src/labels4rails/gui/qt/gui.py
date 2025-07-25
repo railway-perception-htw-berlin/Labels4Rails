@@ -24,6 +24,7 @@ from labels4rails.scene.target import RailDrawOptions, SwitchDrawOptions
 from labels4rails.segmentation.qt.input_data.ui import Ui as SegGui
 from labels4rails.autolabel.switches import AutoSwitches
 from labels4rails.autolabel.tracks import AutoTracks
+from labels4rails.autolabel.tags import AutoTags
 
 
 class QtGUI(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -167,6 +168,7 @@ class QtGUI(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_del_switch.clicked.connect(lambda: self.del_switch())
         self.pushButton_track_auto.clicked.connect(lambda: self.auto_labeling_track())
         self.pushButton_switch_auto.clicked.connect(lambda: self.auto_labeling_switch())
+        self.pushButton_tag_auto.clicked.connect(lambda: self.auto_labeling_tag())
         self.listWidget_images.itemClicked.connect(self.load_image)
 
         self.listWidget_active_switches.itemClicked.connect(lambda: self.active_switch())
@@ -233,19 +235,19 @@ class QtGUI(QtWidgets.QMainWindow, Ui_MainWindow):
 
     # DOCKWIDGET
     def _setup_dock_widget(self) -> None:
-        self.tags_layout: FlowLayout = FlowLayout(
-            parent=None,
-            margin=0,
-            spacing=5
-        )
-        self.tags_layout.addWidget(self.widget_track_layout)
-        self.tags_layout.addWidget(self.widget_weather)
-        self.tags_layout.addWidget(self.widget_light)
-        self.tags_layout.addWidget(self.widget_tod)
-        self.tags_layout.addWidget(self.widget_environment)
-        self.tags_layout.addWidget(self.widget_additional)
+        # self.tags_layout: FlowLayout = FlowLayout(
+        #     parent=None,
+        #     margin=0,
+        #     spacing=5
+        # )
+        # self.tags_layout.addWidget(self.widget_track_layout)
+        # self.tags_layout.addWidget(self.widget_weather)
+        # self.tags_layout.addWidget(self.widget_light)
+        # self.tags_layout.addWidget(self.widget_tod)
+        # self.tags_layout.addWidget(self.widget_environment)
+        # self.tags_layout.addWidget(self.widget_additional)
 
-        self.groupBox_tags.setLayout(self.tags_layout)
+        # self.groupBox_tags.setLayout(self.tags_layout)
 
         self.temp_layoutWidget: QWidget = QWidget()
         self.scrollArea: QScrollArea = QScrollArea()
@@ -259,7 +261,6 @@ class QtGUI(QtWidgets.QMainWindow, Ui_MainWindow):
         self._update_dockLayout()
 
     def _resize_view(self) -> None:
-
         offset = 90
         margin = 20
 
@@ -474,68 +475,12 @@ class QtGUI(QtWidgets.QMainWindow, Ui_MainWindow):
         self.listWidget_additional.clear()
 
     def setup_tags(self) -> None:
-        maxHeight = 0
-        maxWidth = 0
         self.listWidget_track_layout.addItems(self._cfg.targets.tags.track_layout)
-
-        heightSizeHint = self.listWidget_track_layout.sizeHintForRow(0) * self.listWidget_track_layout.count()
-        if heightSizeHint > maxHeight:
-            maxHeight = heightSizeHint
-        if self.listWidget_track_layout.sizeHintForColumn(0) > maxWidth:
-            maxWidth = self.listWidget_track_layout.sizeHintForColumn(0)
-
         self.listWidget_weather.addItems(self._cfg.targets.tags.weather)
-
-        heightSizeHint = self.listWidget_weather.sizeHintForRow(0) * self.listWidget_weather.count()
-        if heightSizeHint > maxHeight:
-            maxHeight = heightSizeHint
-        if self.listWidget_weather.sizeHintForColumn(0) > maxWidth:
-            maxWidth = self.listWidget_weather.sizeHintForColumn(0)
-
         self.listWidget_light.addItems(self._cfg.targets.tags.light)
-
-        heightSizeHint = self.listWidget_light.sizeHintForRow(0) * self.listWidget_light.count()
-        if heightSizeHint > maxHeight:
-            maxHeight = heightSizeHint
-        if self.listWidget_light.sizeHintForColumn(0) > maxWidth:
-            maxWidth = self.listWidget_light.sizeHintForColumn(0)
-
         self.listWidget_tod.addItems(self._cfg.targets.tags.time_of_day)
-
-        heightSizeHint = self.listWidget_tod.sizeHintForRow(0) * self.listWidget_tod.count()
-        if heightSizeHint > maxHeight:
-            maxHeight = heightSizeHint
-        if self.listWidget_tod.sizeHintForColumn(0) > maxWidth:
-            maxWidth = self.listWidget_tod.sizeHintForColumn(0)
-
         self.listWidget_environment.addItems(self._cfg.targets.tags.environment)
-
-        heightSizeHint = self.listWidget_environment.sizeHintForRow(0) * self.listWidget_environment.count()
-        if heightSizeHint > maxHeight:
-            maxHeight = heightSizeHint
-        if self.listWidget_environment.sizeHintForColumn(0) > maxWidth:
-            maxWidth = self.listWidget_environment.sizeHintForColumn(0)
-
         self.listWidget_additional.addItems(self._cfg.targets.tags.additional)
-
-        heightSizeHint = self.listWidget_additional.sizeHintForRow(0) * self.listWidget_additional.count()
-        if heightSizeHint > maxHeight:
-            maxHeight = heightSizeHint
-        if self.listWidget_additional.sizeHintForColumn(0) > maxWidth:
-            maxWidth = self.listWidget_additional.sizeHintForColumn(0)
-
-        self.listWidget_track_layout.setMaximumHeight(maxHeight + 5)
-        self.listWidget_track_layout.setMaximumWidth(maxWidth + 5)
-        self.listWidget_weather.setMaximumHeight(maxHeight + 5)
-        self.listWidget_weather.setMaximumWidth(maxWidth + 5)
-        self.listWidget_light.setMaximumHeight(maxHeight + 5)
-        self.listWidget_light.setMaximumWidth(maxWidth + 5)
-        self.listWidget_tod.setMaximumHeight(maxHeight + 5)
-        self.listWidget_tod.setMaximumWidth(maxWidth + 5)
-        self.listWidget_environment.setMaximumHeight(maxHeight + 5)
-        self.listWidget_environment.setMaximumWidth(maxWidth + 5)
-        self.listWidget_additional.setMaximumHeight(maxHeight + 5)
-        self.listWidget_additional.setMaximumWidth(maxWidth + 5)
 
     def update_tag_lists_selection(self):
         # enable multiselection for tags 
@@ -677,7 +622,6 @@ class QtGUI(QtWidgets.QMainWindow, Ui_MainWindow):
             list_items[0].setSelected(not list_items[0].isSelected())
             list_items[0].setSelected(not list_items[0].isSelected())
 
-
     def _update_track(self):
         if self._annotator._strategy.name == "TRACK" and self.listWidget_active_tracks.currentItem() is not None:
             id = findall('[\d]+', self.listWidget_active_tracks.currentItem().text())
@@ -691,6 +635,7 @@ class QtGUI(QtWidgets.QMainWindow, Ui_MainWindow):
                 elif self.radioTRight.isChecked():
                     self._annotator.get_eventhub().post(gui.GuiEvents.TRACK_CHANGE_POSITION, int(id[0]),
                                                     target.TrackPosition.RIGHT)
+
     def _update_switch(self):
         if self._annotator._strategy.name == "SWITCH" and self.listWidget_active_switches.currentItem() is not None:
 
@@ -1049,6 +994,10 @@ E: update attributes of selected switch<br>
     def auto_labeling_switch(self):
         self.autolabel_switch = AutoSwitches(annotator=self._annotator, cfg=self._cfg, dataset=self._dataset, gui_event=self._gui_events)
         self._annotator.get_eventhub().post(gui.GuiEvents.AUTO_LABELING_SWITCH)
+
+    def auto_labeling_tag(self):
+        self.autolabel_tag = AutoTags(annotator=self._annotator, cfg=self._cfg, dataset=self._dataset, gui_event=self._gui_events)
+        self._annotator.get_eventhub().post(gui.GuiEvents.AUTO_LABELING_TAG)
 
     def load_image(self, clicked):
         self._annotator.get_eventhub().post(gui.GuiEvents.LOAD_SCENE, clicked.text())
