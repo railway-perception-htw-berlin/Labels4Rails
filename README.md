@@ -78,6 +78,15 @@ that you can generate your labels from the dataset.
 You may install this package system-wide, user-wide or in a virtual environment.
 0. If necessary, create and activate the environment. Minimum python version is 3.9.
 
+## Troubleshooting
+If there occure problems during installation of the conda environment, like out_of_memory errors or solving environment doesn't finish, try the following:
+1. Install or update conda to a recent version.
+   - if `conda update conda` wont work, you need to uninstall you current conda and install a new version. Deleting the conda directory manually (using Shift+Del on Windows) might be faster.
+   - if the newest version of conda wont install properly, install [23.9](https://repo.anaconda.com/miniconda/).
+2. Install the alternative solver [libmamba](https://www.anaconda.com/blog/a-faster-conda-for-a-growing-community). You can either set libmamba as default like suggested or just use it to install the Lables4Rails environment: ` conda env update --file win_environment.yml --prune --solver libmamba` 
+
+If an error occurs due to libiomp5md.dll when starting Labels4Rails or loading data into the tool, find the respective binary, probably in <conda_path>/envs/Labels4Rails/Library/bin/>, and delete it.
+
 
 # Expectations for the data structure
 In order to work together efficiently, it is highly recommended to use the
